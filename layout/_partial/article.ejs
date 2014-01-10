@@ -1,0 +1,70 @@
+<article class="<%= item.layout %>">
+  <% if (item.photos){ %>
+    <%- partial('post/gallery') %>
+  <% } %>
+  <div class="post-content">
+    <header>
+      <% if (item.layout != 'page'){ %>
+        <div class="icon"></div>
+        <time datetime="<%= item.date.toDate().toISOString() %>"><a href="<%- config.root %><%- item.path %>"><%= item.date.format(config.date_format) %></a></time>
+      <% } %>
+      <%- partial('post/title') %>
+    </header>
+    <div class="entry">
+      <% if (item.excerpt && index){ %>
+        <%- item.excerpt %>
+      <% } else { %>
+        <%- item.content %>
+      <% } %>
+    </div>
+    <footer>
+      <% if (index){ %>
+        <% if (item.excerpt){ %>
+          <div class="alignleft">
+            <a href="<%- config.root %><%- item.path %>#more" class="more-link"><%= theme.excerpt_link %></a>
+          </div>
+        <% } %>
+        <% if (item.comment && config.disqus_shortname){ %>
+        <div class="alignright">
+          <a href="<%- item.permalink %>#disqus_thread" class="comment-link">Comments</a>
+        </div>
+        <% } %>
+      <% } else { %>
+        <%- partial('post/category') %>
+        <%- partial('post/tag') %>
+
+        <!-- JiaThis Button BEGIN -->
+        <div class="jiathis_style">
+        <a class="jiathis_button_qzone"></a>
+        <a class="jiathis_button_tsina"></a>
+        <a class="jiathis_button_googleplus"></a>
+        <a class="jiathis_button_douban"></a>
+        <a class="jiathis_button_weixin"></a>
+        <a class="jiathis_button_tieba"></a>
+        <a href="http://www.jiathis.com/share?uid=1886404" class="jiathis jiathis_txt jiathis_separator jtico jtico_jiathis" target="_blank"></a>
+        <a class="jiathis_counter_style"></a>
+        </div>
+        <script type="text/javascript" >
+        var jiathis_config={
+          data_track_clickback:true,
+          siteNum:10,
+          sm:"copy,renren,kaixin001,cqq,fb,twitter,evernote,ishare,tqq",
+          summary:"",
+          boldNum:6,
+          ralateuid:{
+            "tsina":"灵柩里的人"
+          },
+          shortUrl:false,
+          hideMore:false
+        }
+        </script>
+        <script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1886404" charset="utf-8"></script>
+        <!-- JiaThis Button END -->
+
+      <% } %>
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+<%- partial('comment') %>
